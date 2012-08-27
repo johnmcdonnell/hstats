@@ -18,6 +18,9 @@ module Math.Statistics where
 import Data.List
 import Data.Ord (comparing)
 
+sq :: Num a => a -> a
+sq x = x*x
+
 -- |Numerically stable mean
 mean :: Floating a => [a] -> a
 mean x = fst $ foldl' (\(!m, !n) x -> (m+(x-m)/(n+1),n+1)) (0,0) x
@@ -177,5 +180,5 @@ linreg xys = let !xs = map fst xys
 
 -- |Returns the sum of square deviations from their sample mean.
 devsq :: (Floating a) => [a] -> a
-devsq xs = sum $ map (\x->(x-m)**2) xs
+devsq xs = sum $ map (\x->sq (x-m)) xs
     where m = mean xs
